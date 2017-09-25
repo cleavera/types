@@ -1,1 +1,1 @@
-export { String } from './classes/string';
+export { $String } from './classes/string';

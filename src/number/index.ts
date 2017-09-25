@@ -1,1 +1,1 @@
-export { Number } from './classes/number';
+export { $Number } from './classes/number';

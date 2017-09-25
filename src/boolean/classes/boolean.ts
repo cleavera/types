@@ -1,6 +1,6 @@
 import { ISerialisable } from '../../shared';
 
-export class Boolean implements ISerialisable<boolean> {
+export class $Boolean implements ISerialisable<boolean> {
     private _value: boolean;
 
     constructor(value?: boolean) {

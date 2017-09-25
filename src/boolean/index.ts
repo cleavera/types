@@ -1,1 +1,1 @@
-export { Boolean } from './classes/boolean';
+export { $Boolean } from './classes/boolean';

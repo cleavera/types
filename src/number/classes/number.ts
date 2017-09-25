@@ -1,6 +1,6 @@
 import { $gcd } from '../helpers/gcd.helper';
 
-export class Number {
+export class $Number {
     public numerator: number;
     public denomenator: number;
 
@@ -10,7 +10,7 @@ export class Number {
         this.denomenator = denominator / gcd;
     }
 
-    public static FromString(str: string, radix: number = 10): Number {
+    public static fromString(str: string, radix: number = 10): $Number {
         const parts: [string, string] = str.split('.') as [string, string];
 
         if (!parts[0]) {
@@ -21,5 +21,25 @@ export class Number {
         const denominator: number = Math.pow(radix, (parts[1] || '').length);
 
         return new this(numerator, denominator);
+    }
+
+    public add(other: $Number): $Number {
+        return new $Number((this.numerator * other.denomenator) + (other.numerator * this.denomenator), this.denomenator * other.denomenator);
+    }
+
+    public multiply(other: $Number): $Number {
+        return new $Number(this.numerator * other.numerator, this.denomenator * other.denomenator);
+    }
+
+    public subtract(other: $Number): $Number {
+        return new $Number((this.numerator * other.denomenator) - (other.numerator * this.denomenator), this.denomenator * other.denomenator);
+    }
+
+    public divide(other: $Number): $Number {
+        return new $Number(this.numerator * other.denomenator, this.denomenator * other.numerator);
+    }
+
+    public toString(radix: number = 10): string {
+        return (this.numerator / this.denomenator).toString(radix);
     }
 }
