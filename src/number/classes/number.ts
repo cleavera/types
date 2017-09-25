@@ -129,6 +129,18 @@ export class $Number {
         return result;
     }
 
+    public invert(): $Number {
+        return new $Number(this.denomenator, this.numerator);
+    }
+
+    public log(): $Number {
+        return new $Number(Math.log(this.numerator) - Math.log(this.denomenator), 1);
+    }
+
+    public nthRoot(n: $Number): $Number {
+        return this.power(n.invert());
+    }
+
     public integer(): $Number {
         return $Number.parseInt(this.toString());
     }
