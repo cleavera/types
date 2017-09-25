@@ -40,6 +40,24 @@ export class $Number {
         return this.fromString('1');
     }
 
+    public static nothing(): $Number {
+        return this.fromString('0');
+    }
+
+    public static series(operator: (value: $Number) => $Number, start: $Number = $Number.nothing(), limit: $Number = $Number.fromString('100')): $Number {
+        start = start.integer();
+        limit = limit.integer();
+
+        let sum: $Number = $Number.nothing();
+
+        while (start < limit) {
+            sum = sum.add(operator(start));
+            start = start.increment();
+        }
+
+        return sum;
+    }
+
     public add(other: $Number): $Number {
         return new $Number((this.numerator * other.denomenator) + (other.numerator * this.denomenator), this.denomenator * other.denomenator);
     }
@@ -78,10 +96,23 @@ export class $Number {
         return this.subtract($Number.identity());
     }
 
+    public isEqual(other: $Number): boolean {
+        return this.toString() === other.toString();
+    }
+
+    public isNotEqual(other: $Number): boolean {
+        return this.toString() !== other.toString();
+    }
+
     public factorial(): $Number {
         let num: $Number = this.integer();
-        let result: $Number = this.integer();
         const one: $Number =  $Number.identity();
+
+        if (num.isEqual($Number.nothing())) {
+            return one;
+        }
+
+        let result: $Number = this.integer();
 
         while (num > one) {
             num = num.decrement();
