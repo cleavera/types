@@ -58,6 +58,12 @@ export class $Number {
         return sum;
     }
 
+    public static E(precision: number = 100): $Number {
+        return this.series((num: $Number) => {
+            return this.identity().divide(num.factorial());
+        }, void 0, new this(precision, 1));
+    }
+
     public add(other: $Number): $Number {
         return new $Number((this.numerator * other.denomenator) + (other.numerator * this.denomenator), this.denomenator * other.denomenator);
     }
@@ -74,8 +80,8 @@ export class $Number {
         return new $Number(this.numerator * other.denomenator, this.denomenator * other.numerator);
     }
 
-    public power(power: number): $Number {
-        return new $Number(this.numerator ** power, this.denomenator ** power);
+    public power(power: $Number): $Number {
+        return new $Number(this.numerator ** power.valueOf(), this.denomenator ** power.valueOf());
     }
 
     public modulus(mod: $Number): $Number {
