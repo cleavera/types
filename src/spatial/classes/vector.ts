@@ -6,6 +6,12 @@ export class $Vector implements ISerialisable<{ start: Array<string>, end: Array
     public end: $Position;
 
     constructor(start: $Position, end: $Position) {
+        if (start.dimensions > end.dimensions) {
+            end = end.raiseToDimension(start.dimensions);
+        } else if (start.dimensions < end.dimensions) {
+            start = start.raiseToDimension(end.dimensions);
+        }
+
         this.start = start;
         this.end = end;
     }
