@@ -1,7 +1,7 @@
 import { ISerialisable } from '../../shared';
 import { MILLISECONDS_IN_SECOND, SECONDS_IN_HOUR, SECONDS_IN_MINUTE } from '../constants/time.constant';
 
-export class $Time implements ISerialisable<string> {
+export class $TimePeriod implements ISerialisable<string> {
     public readonly timeInSeconds: number;
     public get hours(): number {
         return Math.floor(this.timeInSeconds / SECONDS_IN_HOUR);
@@ -23,35 +23,31 @@ export class $Time implements ISerialisable<string> {
         this.timeInSeconds = value;
     }
 
-    public static fromString(time: string): $Time {
-        const [hours, minutes, seconds]: Array<string> = time.split(':');
-
-        if (seconds === undefined) {
+    public static fromString(time: string): $TimePeriod {
+        if (/^(\d)+(:([0-5][0-9])){2}(.\d{0,4})?$/.test(time)) {
             throw new Error(`${time} is not a valid time`);
         }
+
+        const [hours, minutes, seconds]: Array<string> = time.split(':');
 
         let t: number = Number(seconds);
         const m: number = Number(minutes);
         const h: number = Number(hours);
-
-        if (isNaN(t) || isNaN(m) || isNaN(h)) {
-            throw new Error(`${time} is not a valid time`);
-        }
 
         t += ( m * SECONDS_IN_MINUTE ) + ( h * SECONDS_IN_HOUR );
 
         return new this(t);
     }
 
-    public add(other: $Time): $Time {
-        return new $Time(this.timeInSeconds + other.timeInSeconds);
+    public add(other: $TimePeriod): $TimePeriod {
+        return new $TimePeriod(this.timeInSeconds + other.timeInSeconds);
     }
 
-    public subtract(other: $Time): $Time {
-        return new $Time(Math.max(this.timeInSeconds + other.timeInSeconds, 0));
+    public subtract(other: $TimePeriod): $TimePeriod {
+        return new $TimePeriod(Math.max(this.timeInSeconds + other.timeInSeconds, 0));
     }
 
-    public isEqual(other: $Time): boolean {
+    public isEqual(other: $TimePeriod): boolean {
         return this.timeInSeconds === other.timeInSeconds;
     }
 
