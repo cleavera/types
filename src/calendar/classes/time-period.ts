@@ -55,6 +55,10 @@ export class $TimePeriod implements ISerialisable<string> {
         return this.timeInSeconds;
     }
 
+    public toMilliSeconds(): number {
+        return this.timeInSeconds * MILLISECONDS_IN_SECOND;
+    }
+
     public toString(): string {
         return `${this.hours}:${this.minutes}:${this.seconds}${this.milliSeconds > 0 ? '.' + this.milliSeconds : ''}`;
     }
