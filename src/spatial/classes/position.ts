@@ -1,6 +1,7 @@
 import { $Number } from '../../number';
+import { ISerialisable } from '../../shared';
 
-export class $Position {
+export class $Position implements ISerialisable<Array<string>> {
     public coordinates: Array<$Number>;
 
     public get dimensions(): number {
@@ -31,5 +32,11 @@ export class $Position {
         }
 
         return new $Position(...newCoordinate);
+    }
+
+    public serialise(): Array<string> {
+        return this.coordinates.map((position: $Number) => {
+            return position.serialise();
+        });
     }
 }
