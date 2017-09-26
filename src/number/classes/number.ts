@@ -64,6 +64,20 @@ export class $Number {
         }, void 0, new this(precision, 1));
     }
 
+    public static PI(precision: number = 5): $Number {
+        const constants: Array<$Number> = [
+            $Number.fromString('2').multiply($Number.fromString('2').nthRoot($Number.fromString('2'))).divide($Number.fromString('9801')),
+            $Number.fromString('1103'),
+            $Number.fromString('26390'),
+            $Number.fromString('396'),
+            $Number.fromString('4')
+        ];
+
+        return this.series((num: $Number) => {
+            return num.multiply(constants[4]).factorial().multiply(constants[1].add(constants[2].multiply(num))).divide(num.factorial().power(constants[4]).multiply(constants[3].power(constants[4].multiply(num))));
+        }, void 0, new this(precision, 1)).multiply(constants[0]).invert();
+    }
+
     public add(other: $Number): $Number {
         return new $Number((this.numerator * other.denomenator) + (other.numerator * this.denomenator), this.denomenator * other.denomenator);
     }
