@@ -1,8 +1,8 @@
-import { ISerialisable } from '../../shared';
+import { IComparable, ISerialisable } from '../../shared';
 import { $Date } from './date';
 import { $TimePeriod } from './time-period';
 
-export class $DateTime implements ISerialisable<string> {
+export class $DateTime implements ISerialisable<string>, IComparable {
     protected readonly dateObject: Date;
 
     constructor(value: Date) {

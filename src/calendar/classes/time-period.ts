@@ -1,7 +1,7 @@
-import { ISerialisable } from '../../shared';
+import { IComparable, ISerialisable } from '../../shared';
 import { MILLISECONDS_IN_SECOND, SECONDS_IN_HOUR, SECONDS_IN_MINUTE } from '../constants/time.constant';
 
-export class $TimePeriod implements ISerialisable<string> {
+export class $TimePeriod implements ISerialisable<string>, IComparable {
     public readonly timeInSeconds: number;
     public get hours(): number {
         return Math.floor(this.timeInSeconds / SECONDS_IN_HOUR);

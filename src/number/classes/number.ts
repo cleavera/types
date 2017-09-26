@@ -1,6 +1,7 @@
+import { IComparable, ISerialisable } from '../../shared';
 import { $gcd } from '../helpers/gcd.helper';
 
-export class $Number {
+export class $Number implements IComparable, ISerialisable<string> {
     public numerator: number;
     public denomenator: number;
 
@@ -165,5 +166,9 @@ export class $Number {
 
     public valueOf(): number {
         return Number(this.toString());
+    }
+
+    public serialise(): string {
+        return this.toString();
     }
 }
