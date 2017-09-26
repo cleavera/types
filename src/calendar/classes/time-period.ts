@@ -60,7 +60,7 @@ export class $TimePeriod implements ISerialisable<string>, IComparable {
     }
 
     public toString(): string {
-        return `${this.hours}:${this.minutes}:${this.seconds}${this.milliSeconds > 0 ? '.' + this.milliSeconds : ''}`;
+        return `${this.hours}:${this.minutes}:${this.seconds}${this.milliSeconds > 0 ? '.' + this.milliSeconds.toString(10) : ''}`;
     }
 
     public serialise(): string {

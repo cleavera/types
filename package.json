@@ -13,8 +13,8 @@
   "author": "Anthony Cleaver",
   "license": "ISC",
   "dependencies": {
-    "ts-lint": "^4.5.1",
     "ts-loader": "^2.3.7",
+    "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "webpack": "^3.6.0"
   }
