@@ -24,7 +24,7 @@ export class $TimePeriod implements ISerialisable<string> {
     }
 
     public static fromString(time: string): $TimePeriod {
-        if (/^(\d)+(:([0-5][0-9])){2}(.\d{0,4})?$/.test(time)) {
+        if (/^(\d)+(:([0-5][0-9])){2}(\.\d{0,3})?$/.test(time)) {
             throw new Error(`${time} is not a valid time`);
         }
 
