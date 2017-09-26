@@ -1,4 +1,4 @@
-export { $Position } from './spatial';
+export { $Angle, $Position, $Vector } from './spatial';
 export { $Range } from './range';
 export { $Date, $DateTime, $TimePeriod, $TimeOfDay } from './calendar';
 export { $Boolean } from './boolean';
