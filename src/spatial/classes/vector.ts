@@ -1,9 +1,17 @@
+import { $Number } from '../../number';
 import { ISerialisable } from '../../shared';
+
 import { $Position } from './position';
 
 export class $Vector implements ISerialisable<{ start: Array<string>, end: Array<string> }>  {
     public start: $Position;
     public end: $Position;
+
+    public get magnitude(): $Number {
+        return $Number.series((dimension: $Number) => {
+            return this.end.getPositionForDimension(dimension).subtract(this.start.getPositionForDimension(dimension)).power($Number.fromString('2'));
+        }, $Number.nothing(), this.start.dimensions.decrement()).nthRoot($Number.fromString('2'));
+    }
 
     constructor(start: $Position, end: $Position) {
         if (start.dimensions > end.dimensions) {
