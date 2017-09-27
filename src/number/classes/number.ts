@@ -117,14 +117,6 @@ export class $Number implements IComparable, ISerialisable<string> {
         return this.subtract($Number.identity());
     }
 
-    public isEqual(other: $Number): boolean {
-        return this.toString() === other.toString();
-    }
-
-    public isNotEqual(other: $Number): boolean {
-        return this.toString() !== other.toString();
-    }
-
     public factorial(): $Number {
         let num: $Number = this.integer();
         const one: $Number =  $Number.identity();
@@ -158,6 +150,10 @@ export class $Number implements IComparable, ISerialisable<string> {
 
     public integer(): $Number {
         return $Number.parseInt(this.toString());
+    }
+
+    public isEqual(other: $Number): boolean {
+        return this.toString() === other.toString();
     }
 
     public toString(radix: number = 10): string {
