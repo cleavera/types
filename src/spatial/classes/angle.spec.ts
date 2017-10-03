@@ -1,4 +1,4 @@
-import { Expect, Setup, Test, TestFixture } from 'alsatian';
+import { Expect, Setup, Test, TestCase, TestFixture } from 'alsatian';
 
 import { $Number, $NumberStub } from '../../number';
 import { spyStore } from '../../shared';
@@ -204,5 +204,55 @@ export class SerialiseSpec {
     @Test('should serialise correctly')
     public serialise(): void {
         Expect(this._instance.serialise()).toEqual('1');
+    }
+}
+
+@TestFixture('$Angle.sin')
+export class SinSpec {
+    @TestCase(0, 0)
+    @TestCase(1, 0)
+    @TestCase(20, 0)
+    @TestCase(200.5, 0)
+    @TestCase(459.25, 1)
+    @TestCase(0.5, 0)
+    @TestCase(0.25, 1)
+    @TestCase(0.75, -1)
+    @TestCase(0.1, Math.sin(0.1 * Math.PI * 2))
+    @TestCase(-0.1, Math.sin(-0.1 * Math.PI * 2))
+    @TestCase(0.3, Math.sin(0.3 * Math.PI * 2))
+    @TestCase(-0.3, Math.sin(-0.3 * Math.PI * 2))
+    @TestCase(0.7, Math.sin(0.7 * Math.PI * 2))
+    @TestCase(-0.7, Math.sin(-0.7 * Math.PI * 2))
+    @Test('should return the sin of the angle')
+    public sin(turns: number, value: number): void {
+        const turnsCount: $Number = new $Number(turns, 1);
+        const instance: $Angle = new $Angle(turnsCount);
+
+        Expect(instance.sin().valueOf().toString().substr(0, 7)).toEqual(value.toString().substr(0, 7));
+    }
+}
+
+@TestFixture('$Angle.cos')
+export class CosSpec {
+    @TestCase(0, 1)
+    @TestCase(1, 1)
+    @TestCase(20, 1)
+    @TestCase(200.5, -1)
+    @TestCase(459.25, 0)
+    @TestCase(0.5, -1)
+    @TestCase(0.25, 0)
+    @TestCase(0.75, 0)
+    @TestCase(0.1, Math.cos(0.1 * Math.PI * 2))
+    @TestCase(-0.1, Math.cos(-0.1 * Math.PI * 2))
+    @TestCase(0.3, Math.cos(0.3 * Math.PI * 2))
+    @TestCase(-0.3, Math.cos(-0.3 * Math.PI * 2))
+    @TestCase(0.7, Math.cos(0.7 * Math.PI * 2))
+    @TestCase(-0.7, Math.cos(-0.7 * Math.PI * 2))
+    @Test('should return the cos of the angle')
+    public cos(turns: number, value: number): void {
+        const turnsCount: $Number = new $Number(turns, 1);
+        const instance: $Angle = new $Angle(turnsCount);
+
+        Expect(instance.cos().valueOf().toString().substr(0, 7)).toEqual(value.toString().substr(0, 7));
     }
 }
