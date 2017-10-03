@@ -1,3 +1,5 @@
+import { FunctionSpy } from 'alsatian';
+
 import { spyStore } from '../classes/spy-store';
 import { $GetPrototypeMethods } from '../helpers/get-prototype-methods.helper';
 
@@ -9,12 +11,12 @@ export function Stub(StaticClass: any): void {
     const methods: Array<string> = $GetPrototypeMethods(StaticClass);
 
     methods.forEach((methodName: string) => {
-        if (methodName === 'constructor') {
-            return;
-        }
-
-        StaticClass.prototype[methodName] = function(): any {
-            return spyStore.get(this, methodName).call(...arguments);
-        };
+        Object.defineProperty(StaticClass.prototype, methodName, {
+            get(): FunctionSpy {
+                return spyStore.get(this, methodName);
+            },
+            enumerable: true,
+            configurable: true
+        });
     });
 }

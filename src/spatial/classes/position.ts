@@ -30,7 +30,7 @@ export class $Position implements ISerialisable<Array<string>> {
         const newCoordinate: Array<$Number> = this.coordinates.slice();
         let x: $Number = $Number.fromString(newCoordinate.length.toString());
 
-        while (x <= newDimension) {
+        while (x < newDimension) {
             newCoordinate.push($Number.nothing());
             x = x.increment();
         }

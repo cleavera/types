@@ -6,7 +6,7 @@ export function $GetPrototypeMethods(Static: any): Array<string> { // tslint:dis
         const ownProps: Array<string> = Object.getOwnPropertyNames(proto);
 
         ownProps.forEach((prop: string) => {
-            if (props.indexOf(prop) === -1) {
+            if (props.indexOf(prop) === -1 && prop !== 'constructor' && prop !== 'valueOf' && prop !== 'toString') {
                 props.push(prop);
             }
         });
