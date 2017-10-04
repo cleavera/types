@@ -40,7 +40,7 @@ export class $Angle implements ISerialisable<string>, IComparable {
         const angle: $Angle = new $Angle(this.turns.add(translate).modulus($Number.identity()).subtract(translate));
 
         if (angle.valueOf().toString() in SIN) {
-            return new $Number(SIN[angle.valueOf().toString()], 1);
+            return SIN[angle.valueOf().toString()];
         }
 
         return $Number.series((n: $Number): $Number => {
@@ -54,7 +54,7 @@ export class $Angle implements ISerialisable<string>, IComparable {
         const angle: $Angle = new $Angle(this.turns.modulus($Number.identity()));
 
         if (angle.valueOf().toString() in COS) {
-            return new $Number(COS[angle.valueOf().toString()], 1);
+            return COS[angle.valueOf().toString()];
         }
 
         return $Number.series((n: $Number): $Number => {
