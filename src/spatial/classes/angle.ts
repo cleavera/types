@@ -64,6 +64,10 @@ export class $Angle implements ISerialisable<string>, IComparable {
         }, void 0, $Number.fromString('10'));
     }
 
+    public tan(): $Number {
+        return this.sin().divide(this.cos());
+    }
+
     public isEqual(other: $Angle): boolean {
         return this.turns.isEqual(other.turns);
     }

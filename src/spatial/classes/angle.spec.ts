@@ -256,3 +256,28 @@ export class CosSpec {
         Expect(instance.cos().valueOf().toString().substr(0, 7)).toEqual(value.toString().substr(0, 7));
     }
 }
+
+@TestFixture('$Angle.tan')
+export class TanSpec {
+    @TestCase(0, 0)
+    @TestCase(1, 0)
+    @TestCase(20, 0)
+    @TestCase(200.5, 0)
+    @TestCase(459.25, NaN)
+    @TestCase(0.5, 0)
+    @TestCase(0.25, NaN)
+    @TestCase(0.75, NaN)
+    @TestCase(0.1, Math.tan(0.1 * Math.PI * 2))
+    @TestCase(-0.1, Math.tan(-0.1 * Math.PI * 2))
+    @TestCase(0.3, Math.tan(0.3 * Math.PI * 2))
+    @TestCase(-0.3, Math.tan(-0.3 * Math.PI * 2))
+    @TestCase(0.7, Math.tan(0.7 * Math.PI * 2))
+    @TestCase(-0.7, Math.tan(-0.7 * Math.PI * 2))
+    @Test('should return the tan of the angle')
+    public tan(turns: number, value: number): void {
+        const turnsCount: $Number = new $Number(turns, 1);
+        const instance: $Angle = new $Angle(turnsCount);
+
+        Expect(instance.tan().valueOf().toString().substr(0, 6)).toEqual(value.toString().substr(0, 6));
+    }
+}
