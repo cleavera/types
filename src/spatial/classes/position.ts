@@ -12,6 +12,10 @@ export class $Position implements ISerialisable<Array<string>> {
         this.coordinates = coordinates;
     }
 
+    public static origin(): $Position {
+        return new $Position($Number.nothing());
+    }
+
     public getPositionForDimension(dimension: $Number): $Number {
         dimension = dimension.integer();
 

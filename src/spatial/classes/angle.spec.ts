@@ -49,6 +49,66 @@ export class FromDegreesSpec {
     }
 }
 
+@TestFixture('$Angle.static.rightAngle')
+export class RightAngleSpec {
+    private _instance: $Angle;
+
+    @Setup
+    public setup(): void {
+        this._instance = $Angle.rightAngle();
+    }
+
+    @Test('should construct correctly')
+    public construct(): void {
+        Expect(this._instance.turns.valueOf()).toEqual(0.25);
+    }
+}
+
+@TestFixture('$Angle.static.straightAngle')
+export class StraightAngleSpec {
+    private _instance: $Angle;
+
+    @Setup
+    public setup(): void {
+        this._instance = $Angle.straightAngle();
+    }
+
+    @Test('should construct correctly')
+    public construct(): void {
+        Expect(this._instance.turns.valueOf()).toEqual(0.5);
+    }
+}
+
+@TestFixture('$Angle.static.zeroAngle')
+export class ZeroAngleSpec {
+    private _instance: $Angle;
+
+    @Setup
+    public setup(): void {
+        this._instance = $Angle.zeroAngle();
+    }
+
+    @Test('should construct correctly')
+    public construct(): void {
+        Expect(this._instance.turns.valueOf()).toEqual(0);
+    }
+}
+
+@TestFixture('$Angle.static.circleAngle')
+export class CircleAngleSpec {
+    private _instance: $Angle;
+
+    @Setup
+    public setup(): void {
+        this._instance = $Angle.circleAngle();
+    }
+
+    @Test('should construct correctly')
+    public construct(): void {
+        Expect(this._instance.turns.valueOf()).toEqual(1);
+    }
+}
+
 @TestFixture('$Angle.degrees')
 export class DegreesSpec {
     private _instance: $Angle;

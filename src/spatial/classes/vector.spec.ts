@@ -101,3 +101,52 @@ export class MagnitudeSpec {
         Expect(instance.magnitude.valueOf()).toEqual(magnitude);
     }
 }
+
+@TestFixture('$Vector.normalise')
+export class NormaliseSpec {
+    @TestCase([0], [1], ['0'], ['1'])
+    @TestCase([2], [4], ['0'], ['1'])
+    @TestCase([0, 0], [7, 24], ['0', '0'], ['0.28', '0.96'])
+    @TestCase([2, 5], [30, 50], ['0', '0'], ['0.5283018867924528', '0.8490566037735849'])
+    @TestCase([0], [3, 6, 22], ['0', '0', '0'], ['0.13043478260869565', '0.2608695652173913', '0.9565217391304348'])
+    @Test('should return the normalised vector')
+    public normalise(start: Array<number>, end: Array<number>, newStart: Array<number>, newEnd: Array<number>): void {
+        const startPos: $Position = new $Position(...start.map((num: number) => {
+            return new $Number(num, 1);
+        }));
+
+        const endPos: $Position = new $Position(...end.map((num: number) => {
+            return new $Number(num, 1);
+        }));
+
+        const instance: $Vector = new $Vector(startPos, endPos);
+        const normalised: $Vector = instance.normalise();
+
+        Expect(normalised.serialise()).toEqual({ start: newStart, end: newEnd });
+        Expect(normalised.magnitude.valueOf()).toEqual($Number.identity().valueOf());
+    }
+}
+
+@TestFixture('$Vector.getAngleForDimensions')
+export class GetAngleForDimensionsSpec {
+    @TestCase([0, 0], [1, 1], 1, Math.atan(1))
+    @TestCase([0, 0], [20, 20], 1, Math.atan(0.5))
+    @TestCase([0, 0], [20, 10], 1, Math.atan(0.25))
+    @Test('should return the the angle for the vector at a dimension')
+    public normalise(start: Array<number>, end: Array<number>, dimension: number, result: number): void {
+        const startPos: $Position = new $Position(...start.map((num: number) => {
+            return new $Number(num, 1);
+        }));
+
+        const endPos: $Position = new $Position(...end.map((num: number) => {
+            return new $Number(num, 1);
+        }));
+
+        const angleDimension: $Number = new $Number(dimension, 1);
+        const resultAngle: number = result / (2 * Math.PI);
+
+        const instance: $Vector = new $Vector(startPos, endPos);
+
+        Expect(instance.getAngleForDimension(angleDimension).valueOf()).toEqual(resultAngle);
+    }
+}

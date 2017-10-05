@@ -27,6 +27,24 @@ export class $Angle implements ISerialisable<string>, IComparable {
         return new this(degrees.divide(DEGREES_IN_TURN));
     }
 
+    public static circleAngle(): $Angle {
+        return new $Angle($Number.identity());
+    }
+
+    public static rightAngle(): $Angle {
+        const half: $Number = $Number.half();
+
+        return new $Angle(half.multiply(half));
+    }
+
+    public static straightAngle(): $Angle {
+        return new $Angle($Number.half());
+    }
+
+    public static zeroAngle(): $Angle {
+        return new $Angle($Number.nothing());
+    }
+
     public add(other: $Angle): $Angle {
         return new $Angle(this.turns.add(other.turns));
     }

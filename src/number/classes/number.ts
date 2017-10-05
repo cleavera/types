@@ -37,6 +37,16 @@ export class $Number implements IComparable, ISerialisable<string> {
         return new this(numerator, denominator);
     }
 
+    public static two(): $Number {
+        const one: $Number = $Number.identity();
+
+        return one.add(one);
+    }
+
+    public static half(): $Number {
+        return $Number.two().invert();
+    }
+
     public static identity(): $Number {
         return this.fromString('1');
     }
@@ -48,6 +58,10 @@ export class $Number implements IComparable, ISerialisable<string> {
     public static series(operator: (value: $Number) => $Number, start: $Number = $Number.nothing(), limit: $Number = $Number.fromString('100')): $Number {
         start = start.integer();
         limit = limit.integer();
+
+        if (start > limit) {
+            [start, limit] = [limit, start];
+        }
 
         let sum: $Number = $Number.nothing();
 

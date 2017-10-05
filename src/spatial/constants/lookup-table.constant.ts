@@ -1,4 +1,4 @@
-import { $Number } from '../../number/classes/number';
+import { $Number } from '../../number';
 
 const zero: $Number = new $Number(0, 1);
 const one: $Number = $Number.identity();
