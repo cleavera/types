@@ -1,4 +1,4 @@
-import { Expect, Setup, Test, TestCase, TestFixture } from 'alsatian';
+import { Expect, FocusTest, Setup, Test, TestCase, TestFixture } from 'alsatian';
 
 import { $Number } from '../../number';
 import { spyStore } from '../../shared';
@@ -134,6 +134,8 @@ export class GetAngleForDimensionsSpec {
     @TestCase([0, 0], [20, 20], 1, Math.atan(1))
     @TestCase([0, 0], [20, 10], 1, Math.atan(0.5))
     @TestCase([0, 0], [3, 1], 1, Math.atan(1 / 3))
+    @TestCase([0, 0], [-1, 1], 1, Math.PI - Math.atan(1))
+    @FocusTest
     @Test('should return the the angle for the vector at a dimension')
     public normalise(start: Array<number>, end: Array<number>, dimension: number, result: number): void {
         const startPos: $Position = new $Position(...start.map((num: number) => {

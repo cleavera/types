@@ -63,9 +63,9 @@ export class $Vector implements ISerialisable<{ start: Array<string>, end: Array
         }, void 0, finalY.multiply(increment)));
 
         if (finalX < $Number.nothing()) {
-            theta = theta.subtract($Angle.straightAngle());
+            theta = $Angle.straightAngle().subtract(theta);
         } else if (theta < $Angle.zeroAngle()) {
-            theta = theta.add($Angle.circleAngle());
+            theta = $Angle.circleAngle().add(theta);
         }
 
         return theta;
