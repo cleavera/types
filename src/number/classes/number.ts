@@ -31,12 +31,8 @@ export class $Number implements IComparable, ISerialisable<string> {
             throw new Error(`${str} is not a number`);
         }
 
-        let numerator: number = parseInt(parts[0], radix);
+        const numerator: number = parseInt(parts[0], radix);
         const denominator: number = 1;
-
-        if (parts[1] && parts[1].length && parseInt(parts[1][0], radix) >= 5) {
-            numerator++;
-        }
 
         return new this(numerator, denominator);
     }
