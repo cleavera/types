@@ -131,8 +131,7 @@
     ],
     "linebreak-style": false,
     "max-classes-per-file": [
-      true,
-      1
+      false
     ],
     "max-file-line-count": [
       false
