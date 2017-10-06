@@ -44,17 +44,25 @@ export class $Vector implements ISerialisable<{ start: Array<string>, end: Array
 
     public getAngleForDimension(dimension: $Number): $Angle {
         const normalisedVector: $Vector = this.normalise();
-        const x: $Number = normalisedVector.getMagnitudeForDimension($Number.identity());
-        const y: $Number = normalisedVector.getMagnitudeForDimension(dimension.increment());
-        const z: $Number = y.divide(x);
+        const finalX: $Number = normalisedVector.getMagnitudeForDimension($Number.identity());
+        const finalY: $Number = normalisedVector.getMagnitudeForDimension(dimension.increment());
+        const increment: $Number = $Number.fromString('10000');
+        let lastPos: $Position = new $Position($Number.identity(), $Number.nothing());
 
-        let theta: $Angle = $Angle.fromRadians($Number.series((n: $Number) => {
-            const k: $Number = $Number.fromString('2').multiply(n).add($Number.identity());
+        let total: $Number = $Number.nothing();
 
-            return $Number.identity().negate().power(n).multiply(z.power(k)).divide(k);
-        }, void 0, $Number.fromString('100')));
+        let theta: $Angle = $Angle.fromRadians($Number.series((y: $Number) => {
+            y = y.divide(increment);
+            const x: $Number = normalisedVector.magnitude.subtract(y.power($Number.two())).nthRoot($Number.two());
+            const newPos: $Position = new $Position(x, y);
+            const vector: $Vector = new $Vector(lastPos, newPos);
+            lastPos = newPos;
+            total = total.add(vector.magnitude);
 
-        if (x < $Number.nothing()) {
+            return vector.magnitude;
+        }, void 0, finalY.multiply(increment)));
+
+        if (finalX < $Number.nothing()) {
             theta = theta.subtract($Angle.straightAngle());
         } else if (theta < $Angle.zeroAngle()) {
             theta = theta.add($Angle.circleAngle());

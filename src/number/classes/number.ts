@@ -31,10 +31,20 @@ export class $Number implements IComparable, ISerialisable<string> {
             throw new Error(`${str} is not a number`);
         }
 
-        const numerator: number = parseInt(parts[0], radix);
+        let numerator: number = parseInt(parts[0], radix);
         const denominator: number = 1;
 
+        if (parts[1] && parts[1].length && parseInt(parts[1][0], radix) >= 5) {
+            numerator++;
+        }
+
         return new this(numerator, denominator);
+    }
+
+    public static ten(): $Number {
+        const two: $Number = $Number.two();
+
+        return two.multiply(two).multiply(two).add(two);
     }
 
     public static two(): $Number {
@@ -164,6 +174,12 @@ export class $Number implements IComparable, ISerialisable<string> {
 
     public integer(): $Number {
         return $Number.parseInt(this.toString());
+    }
+
+    public round(dp: $Number): $Number {
+        const multiplicator: $Number = $Number.ten().power(dp);
+
+        return this.multiply(multiplicator).integer().divide(multiplicator);
     }
 
     public isEqual(other: $Number): boolean {

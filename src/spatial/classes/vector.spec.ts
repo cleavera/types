@@ -1,11 +1,12 @@
-import { Expect, Setup, Test, TestCase, TestFixture } from 'alsatian';
+import { Expect, FocusTest, Setup, Test, TestCase, TestFixture } from 'alsatian';
 
+import { $Number } from '../../number';
 import { spyStore } from '../../shared';
 
 import { $Position } from './position';
 import { $PositionStub } from './position.stub';
 import { $Vector } from './vector';
-import { $Number } from '../../number/classes/number';
+import { $Angle } from './angle';
 
 @TestFixture('$Vector.serialise')
 export class SerialiseSpec {
@@ -130,8 +131,10 @@ export class NormaliseSpec {
 @TestFixture('$Vector.getAngleForDimensions')
 export class GetAngleForDimensionsSpec {
     @TestCase([0, 0], [1, 1], 1, Math.atan(1))
-    @TestCase([0, 0], [20, 20], 1, Math.atan(0.5))
-    @TestCase([0, 0], [20, 10], 1, Math.atan(0.25))
+    @TestCase([0, 0], [20, 20], 1, Math.atan(1))
+    @TestCase([0, 0], [20, 10], 1, Math.atan(0.5))
+    @TestCase([0, 0], [3, 1], 1, Math.atan(1 / 3))
+    @FocusTest
     @Test('should return the the angle for the vector at a dimension')
     public normalise(start: Array<number>, end: Array<number>, dimension: number, result: number): void {
         const startPos: $Position = new $Position(...start.map((num: number) => {
@@ -143,10 +146,11 @@ export class GetAngleForDimensionsSpec {
         }));
 
         const angleDimension: $Number = new $Number(dimension, 1);
-        const resultAngle: number = result / (2 * Math.PI);
+        const resultAngle: $Number = $Angle.fromRadians(new $Number(result, 1)).turns;
 
         const instance: $Vector = new $Vector(startPos, endPos);
+        const decimalPlaces: $Number = $Number.two().add($Number.identity());
 
-        Expect(instance.getAngleForDimension(angleDimension).valueOf()).toEqual(resultAngle);
+        Expect(instance.getAngleForDimension(angleDimension).turns.round(decimalPlaces).serialise()).toEqual(resultAngle.round(decimalPlaces).serialise());
     }
 }
