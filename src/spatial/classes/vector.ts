@@ -8,10 +8,14 @@ export class $Vector implements ISerialisable<{ start: Array<string>, end: Array
     public start: $Position;
     public end: $Position;
 
+    public get dimensions(): $Number {
+        return this.start.dimensions;
+    }
+
     public get magnitude(): $Number {
         return $Number.series((dimension: $Number) => {
             return this.getMagnitudeForDimension(dimension.increment()).power($Number.fromString('2'));
-        }, $Number.nothing(), this.start.dimensions).nthRoot($Number.fromString('2'));
+        }, $Number.nothing(), this.dimensions).nthRoot($Number.fromString('2'));
     }
 
     constructor(start: $Position, end: $Position) {
@@ -34,7 +38,7 @@ export class $Vector implements ISerialisable<{ start: Array<string>, end: Array
 
         let dimension: $Number = $Number.identity();
 
-        while (dimension <= this.end.dimensions) {
+        while (dimension <= this.dimensions) {
             coordinates.push(this.getMagnitudeForDimension(dimension).divide(this.magnitude));
             dimension = dimension.increment();
         }

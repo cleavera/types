@@ -1,4 +1,4 @@
-import { Expect, FocusTest, Setup, Test, TestCase, TestFixture } from 'alsatian';
+import { Expect, Setup, Test, TestCase, TestFixture } from 'alsatian';
 
 import { $Number } from '../../number';
 import { spyStore } from '../../shared';
@@ -7,6 +7,7 @@ import { $Angle } from './angle';
 import { $Position } from './position';
 import { $PositionStub } from './position.stub';
 import { $Vector } from './vector';
+import { $NumberStub } from '../../number/classes/number.stub';
 
 @TestFixture('$Vector.serialise')
 export class SerialiseSpec {
@@ -135,7 +136,6 @@ export class GetAngleForDimensionsSpec {
     @TestCase([0, 0], [20, 10], 1, Math.atan(0.5))
     @TestCase([0, 0], [3, 1], 1, Math.atan(1 / 3))
     @TestCase([0, 0], [-1, 1], 1, Math.PI - Math.atan(1))
-    @FocusTest
     @Test('should return the the angle for the vector at a dimension')
     public normalise(start: Array<number>, end: Array<number>, dimension: number, result: number): void {
         const startPos: $Position = new $Position(...start.map((num: number) => {
@@ -153,5 +153,29 @@ export class GetAngleForDimensionsSpec {
         const decimalPlaces: $Number = $Number.two();
 
         Expect(instance.getAngleForDimension(angleDimension).turns.round(decimalPlaces).serialise()).toEqual(resultAngle.round(decimalPlaces).serialise());
+    }
+}
+
+@TestFixture('$Vector.dimensions')
+export class DimensionsSpec {
+    private _instance: $Vector;
+    private _start: $Position;
+    private _end: $Position;
+    private _dimensions: $Number;
+
+    @Setup
+    public setup(): void {
+        this._start = new $PositionStub(0, 0);
+        this._end = new $PositionStub(2, 2);
+        this._dimensions = new $NumberStub(1);
+
+        spyStore.get(this._start, 'dimensions.get').andReturn(this._dimensions);
+        this._instance = new $Vector(this._start, this._end);
+    }
+
+    @Test('should return the correct number of dimensions')
+    public dimensions(): void {
+        Expect(spyStore.get(this._start, 'dimensions.get')).toHaveBeenCalledWith();
+        Expect(this._instance.dimensions).toEqual(this._dimensions);
     }
 }
