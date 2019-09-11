@@ -3,7 +3,7 @@ import { $String } from './string';
 
 @TestFixture('$String.serialise')
 export class SerialiseSpec {
-    private _instance: $String;
+    private _instance!: $String;
 
     @Setup
     public setup(): void {

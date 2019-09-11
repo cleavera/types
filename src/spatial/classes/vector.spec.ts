@@ -1,19 +1,19 @@
 import { Expect, Setup, Test, TestCase, TestFixture } from 'alsatian';
 
 import { $Number } from '../../number';
+import { $NumberStub } from '../../number/classes/number.stub';
 import { spyStore } from '../../shared';
 
 import { $Angle } from './angle';
 import { $Position } from './position';
 import { $PositionStub } from './position.stub';
 import { $Vector } from './vector';
-import { $NumberStub } from '../../number/classes/number.stub';
 
 @TestFixture('$Vector.serialise')
 export class SerialiseSpec {
-    private _instance: $Vector;
-    private _start: $Position;
-    private _end: $Position;
+    private _instance!: $Vector;
+    private _start!: $Position;
+    private _end!: $Position;
 
     @Setup
     public setup(): void {
@@ -36,9 +36,8 @@ export class SerialiseSpec {
 
 @TestFixture('$Vector.constructor')
 export class ConstructorSpec {
-    private _instance: $Vector;
-    private _start: $Position;
-    private _end: $Position;
+    private _start!: $Position;
+    private _end!: $Position;
 
     @Setup
     public setup(): void {
@@ -48,21 +47,21 @@ export class ConstructorSpec {
 
     @Test('should raise the start dimensions when there are less start dimensions than end')
     public raiseStartDimensions(): void {
-        spyStore.get(this._start, 'dimensions.get').andReturn(1);
-        spyStore.get(this._end, 'dimensions.get').andReturn(2);
-        this._instance = new $Vector(this._start, this._end);
+        spyStore.get(this._start, 'dimensions.get').andReturn(new $NumberStub(1));
+        spyStore.get(this._end, 'dimensions.get').andReturn(new $NumberStub(2));
+        new $Vector(this._start, this._end); // tslint:disable-line no-unused-expression
 
-        Expect(this._start.raiseToDimension).toHaveBeenCalledWith(2);
+        Expect(this._start.raiseToDimension).toHaveBeenCalledWith(new $NumberStub(2));
         Expect(this._end.raiseToDimension).not.toHaveBeenCalled();
     }
 
     @Test('should raise the end dimensions when there are less end dimensions than start')
     public raiseEndDimensions(): void {
-        spyStore.get(this._start, 'dimensions.get').andReturn(2);
-        spyStore.get(this._end, 'dimensions.get').andReturn(1);
-        this._instance = new $Vector(this._start, this._end);
+        spyStore.get(this._start, 'dimensions.get').andReturn(new $NumberStub(2));
+        spyStore.get(this._end, 'dimensions.get').andReturn(new $NumberStub(1));
+        new $Vector(this._start, this._end); // tslint:disable-line no-unused-expression
 
-        Expect(this._end.raiseToDimension).toHaveBeenCalledWith(2);
+        Expect(this._end.raiseToDimension).toHaveBeenCalledWith(new $NumberStub(2));
         Expect(this._start.raiseToDimension).not.toHaveBeenCalled();
     }
 
@@ -70,7 +69,7 @@ export class ConstructorSpec {
     public raiseNeitherDimensions(): void {
         spyStore.get(this._start, 'dimensions.get').andReturn(2);
         spyStore.get(this._end, 'dimensions.get').andReturn(2);
-        this._instance = new $Vector(this._start, this._end);
+        new $Vector(this._start, this._end); // tslint:disable-line no-unused-expression
 
         Expect(this._start.raiseToDimension).not.toHaveBeenCalled();
         Expect(this._end.raiseToDimension).not.toHaveBeenCalled();
@@ -124,7 +123,10 @@ export class NormaliseSpec {
         const instance: $Vector = new $Vector(startPos, endPos);
         const normalised: $Vector = instance.normalise();
 
-        Expect(normalised.serialise()).toEqual({ start: newStart, end: newEnd });
+        Expect(normalised.serialise()).toEqual({
+            start: newStart,
+            end: newEnd
+        });
         Expect(normalised.magnitude.valueOf()).toEqual($Number.identity().valueOf());
     }
 }
@@ -158,10 +160,10 @@ export class GetAngleForDimensionsSpec {
 
 @TestFixture('$Vector.dimensions')
 export class DimensionsSpec {
-    private _instance: $Vector;
-    private _start: $Position;
-    private _end: $Position;
-    private _dimensions: $Number;
+    private _instance!: $Vector;
+    private _start!: $Position;
+    private _end!: $Position;
+    private _dimensions!: $Number;
 
     @Setup
     public setup(): void {

@@ -7,10 +7,10 @@ import { $Position } from './position';
 
 @TestFixture('$Position.serialise')
 export class SerialiseSpec {
-    private _instance: $Position;
-    private _numberStub1: $Number;
-    private _numberStub2: $Number;
-    private _numberStub3: $Number;
+    private _instance!: $Position;
+    private _numberStub1!: $Number;
+    private _numberStub2!: $Number;
+    private _numberStub3!: $Number;
 
     @Setup
     public setup(): void {
@@ -32,38 +32,40 @@ export class SerialiseSpec {
 
 @TestFixture('$Position.dimensions')
 export class DimensionsSpec {
-    private _instance: $Position;
-    private _numberStub1: $Number;
-    private _numberStub2: $Number;
-    private _numberStub3: $Number;
+    private _instance!: $Position;
+    private _numberStubs!: Array<$Number>;
 
     @Setup
     public setup(): void {
-        this._numberStub1 = new $NumberStub(1);
-        this._numberStub2 = new $NumberStub(3);
-        this._numberStub3 = new $NumberStub(5);
+        this._numberStubs = [
+            new $NumberStub(1),
+            new $NumberStub(3),
+            new $NumberStub(5)
+        ];
 
-        spyStore.get(this._numberStub1, 'serialise').andReturn('1');
-        spyStore.get(this._numberStub2, 'serialise').andReturn('3');
-        spyStore.get(this._numberStub3, 'serialise').andReturn('5');
+        spyStore.get(this._numberStubs[0], 'serialise').andReturn('1');
+        spyStore.get(this._numberStubs[1], 'serialise').andReturn('3');
+        spyStore.get(this._numberStubs[2], 'serialise').andReturn('5');
     }
 
-    @TestCase(1, this._numberStub1)
-    @TestCase(2, this._numberStub1, this._numberStub2)
-    @TestCase(3, this._numberStub1, this._numberStub2, this._numberStub3)
+    @TestCase(1)
+    @TestCase(2)
+    @TestCase(3)
     @Test('should return the correct number of dimensions')
-    public dimensions(dimensions: number, ...args: Array<$Number>): void {
-        this._instance = new $Position(...args);
+    public dimensions(dimensions: number): void {
+        const stubs: Array<$Number> = this._numberStubs.slice(0, dimensions);
+
+        this._instance = new $Position(...stubs);
         Expect(this._instance.dimensions.valueOf()).toEqual(dimensions);
     }
 }
 
 @TestFixture('$Position.getPositionForDimension')
 export class GetPositionForDimensionSpec {
-    private _instance: $Position;
-    private _numberStub1: $Number;
-    private _numberStub2: $Number;
-    private _numberStub3: $Number;
+    private _instance!: $Position;
+    private _numberStub1!: $Number;
+    private _numberStub2!: $Number;
+    private _numberStub3!: $Number;
 
     @Setup
     public setup(): void {
@@ -101,10 +103,10 @@ export class GetPositionForDimensionSpec {
 
 @TestFixture('$Position.raiseToDimension')
 export class RaiseToDimensionSpec {
-    private _instance: $Position;
-    private _numberStub1: $Number;
-    private _numberStub2: $Number;
-    private _numberStub3: $Number;
+    private _instance!: $Position;
+    private _numberStub1!: $Number;
+    private _numberStub2!: $Number;
+    private _numberStub3!: $Number;
 
     @Setup
     public setup(): void {
@@ -133,4 +135,3 @@ export class RaiseToDimensionSpec {
         Expect(this._instance.raiseToDimension(dimensionCount).dimensions.valueOf()).toEqual(5);
     }
 }
-

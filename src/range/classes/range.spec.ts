@@ -7,9 +7,9 @@ import { $Range } from './range';
 
 @TestFixture('$Range.serialise')
 export class SerialiseSpec {
-    private _numberStub1: $Number;
-    private _numberStub2: $Number;
-    private _instance: $Range<$Number>;
+    private _numberStub1!: $Number;
+    private _numberStub2!: $Number;
+    private _instance!: $Range<$Number>;
 
     @Setup
     public setup(): void {

@@ -3,7 +3,7 @@ import { $Boolean } from './boolean';
 
 @TestFixture('$Boolean.serialise')
 export class SerialiseSpec {
-    private _instance: $Boolean;
+    private _instance!: $Boolean;
 
     @Setup
     public setup(): void {

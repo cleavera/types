@@ -9,8 +9,8 @@ import { $AngleStub } from './angle.stub';
 
 @TestFixture('$Angle.static.fromRadians')
 export class FromRadiansSpec {
-    private _instance: $Angle;
-    private _radians: $Number;
+    private _instance!: $Angle;
+    private _radians!: $Number;
 
     @Setup
     public setup(): void {
@@ -30,8 +30,8 @@ export class FromRadiansSpec {
 
 @TestFixture('$Angle.static.fromDegrees')
 export class FromDegreesSpec {
-    private _instance: $Angle;
-    private _degrees: $Number;
+    private _instance!: $Angle;
+    private _degrees!: $Number;
 
     @Setup
     public setup(): void {
@@ -51,7 +51,7 @@ export class FromDegreesSpec {
 
 @TestFixture('$Angle.static.rightAngle')
 export class RightAngleSpec {
-    private _instance: $Angle;
+    private _instance!: $Angle;
 
     @Setup
     public setup(): void {
@@ -66,7 +66,7 @@ export class RightAngleSpec {
 
 @TestFixture('$Angle.static.straightAngle')
 export class StraightAngleSpec {
-    private _instance: $Angle;
+    private _instance!: $Angle;
 
     @Setup
     public setup(): void {
@@ -81,7 +81,7 @@ export class StraightAngleSpec {
 
 @TestFixture('$Angle.static.zeroAngle')
 export class ZeroAngleSpec {
-    private _instance: $Angle;
+    private _instance!: $Angle;
 
     @Setup
     public setup(): void {
@@ -96,7 +96,7 @@ export class ZeroAngleSpec {
 
 @TestFixture('$Angle.static.circleAngle')
 export class CircleAngleSpec {
-    private _instance: $Angle;
+    private _instance!: $Angle;
 
     @Setup
     public setup(): void {
@@ -111,8 +111,8 @@ export class CircleAngleSpec {
 
 @TestFixture('$Angle.degrees')
 export class DegreesSpec {
-    private _instance: $Angle;
-    private _turns: $Number;
+    private _instance!: $Angle;
+    private _turns!: $Number;
 
     @Setup
     public setup(): void {
@@ -132,8 +132,8 @@ export class DegreesSpec {
 
 @TestFixture('$Angle.radians')
 export class RadiansSpec {
-    private _instance: $Angle;
-    private _turns: $Number;
+    private _instance!: $Angle;
+    private _turns!: $Number;
 
     @Setup
     public setup(): void {
@@ -153,10 +153,10 @@ export class RadiansSpec {
 
 @TestFixture('$Angle.add')
 export class AddSpec {
-    private _instance: $Angle;
-    private _turns: $Number;
-    private _other: $AngleStub;
-    private _new: $Number;
+    private _instance!: $Angle;
+    private _turns!: $Number;
+    private _other!: $AngleStub;
+    private _new!: $Number;
 
     @Setup
     public setup(): void {
@@ -178,10 +178,10 @@ export class AddSpec {
 
 @TestFixture('$Angle.subtract')
 export class SubtractSpec {
-    private _instance: $Angle;
-    private _turns: $Number;
-    private _other: $AngleStub;
-    private _new: $Number;
+    private _instance!: $Angle;
+    private _turns!: $Number;
+    private _other!: $AngleStub;
+    private _new!: $Number;
 
     @Setup
     public setup(): void {
@@ -203,9 +203,9 @@ export class SubtractSpec {
 
 @TestFixture('$Angle.isEqual')
 export class IsEqualSpec {
-    private _instance: $Angle;
-    private _turns: $Number;
-    private _other: $AngleStub;
+    private _instance!: $Angle;
+    private _turns!: $Number;
+    private _other!: $AngleStub;
 
     @Setup
     public setup(): void {
@@ -232,8 +232,8 @@ export class IsEqualSpec {
 
 @TestFixture('$Angle.valueOf')
 export class ValueOfSpec {
-    private _instance: $Angle;
-    private _turns: $Number;
+    private _instance!: $Angle;
+    private _turns!: $Number;
 
     @Setup
     public setup(): void {
@@ -250,8 +250,8 @@ export class ValueOfSpec {
 
 @TestFixture('$Angle.serialise')
 export class SerialiseSpec {
-    private _instance: $Angle;
-    private _turns: $Number;
+    private _instance!: $Angle;
+    private _turns!: $Number;
 
     @Setup
     public setup(): void {
